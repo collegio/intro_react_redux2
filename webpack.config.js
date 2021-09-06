@@ -2,7 +2,6 @@ const path = require('path');
 
 module.exports = {
     entry: './src/app.js',    // the entry point of the application
-    // entry: './src/redux/higher-order-components.js',    // the entry point of the application
     output: {
         path: path.join(__dirname, 'public'),   // output to public folder
         filename: 'bundle.js'                   // output bundled JavaScript as bundle.js
@@ -21,7 +20,7 @@ module.exports = {
             ]
         }]
     },
-    devtool: 'cheap-module-eval-source-map',
+    devtool: 'eval-cheap-module-source-map',
     devServer: {
         contentBase: path.join(__dirname, 'public'),
         historyApiFallback: true

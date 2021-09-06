@@ -1,8 +1,8 @@
 import React from 'react';
 
-const PlayersListFilters = (props) => (
-    <div className="players-list-filters">
-        <h2>Filter Players</h2>
+const ActivitiesListFilters = (props) => (
+    <div className="activities-list-filters">
+        <h2>Filter Activities</h2>
         <div className="filter-group">
             <label>Search For:</label><br />
             <input type="text" value={props.filters.text} onChange={(e) => {
@@ -38,4 +38,4 @@ const PlayersListFilters = (props) => (
     </div>
 );
 
-export default PlayersListFilters;
+export default ActivitiesListFilters;

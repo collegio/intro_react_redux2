@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import FreeAgentDashboardPage from '../components/FreeAgentDashboardPage';
-import AddPlayerPage from '../components/AddPlayerPage';
-import EditPlayerPage from '../components/EditPlayerPage';
+import ActivityDashboardPage from '../components/ActivityDashboardPage';
+import AddActivityPage from '../components/AddActivityPage';
+import EditActivityPage from '../components/EditActivityPage';
 import NotFoundPage from '../components/NotFoundPage';
 import Header from '../components/Header';
 
@@ -10,11 +10,11 @@ const MainRouter = (props) => {
     return (
         <BrowserRouter>
             <div>
-                <Header>Free Agent Tracker</Header>
+                <Header>Activity Tracker</Header>
                 <Switch>
-                    <Route path="/" component={FreeAgentDashboardPage} exact={true} />
-                    <Route path="/create" component={AddPlayerPage} exact={true} />
-                    <Route path="/edit/:id/" component={EditPlayerPage} />
+                    <Route path="/" component={ActivityDashboardPage} exact={true} />
+                    <Route path="/create" component={AddActivityPage} exact={true} />
+                    <Route path="/edit/:id/" component={EditActivityPage} />
                     <Route component={NotFoundPage} />
                 </Switch>
             </div>

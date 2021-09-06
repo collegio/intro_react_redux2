@@ -1,6 +1,6 @@
 import React from 'react';
 
-class PlayerForm extends React.Component {
+class ActivityForm extends React.Component {
 
     constructor(props) {
         super(props);
@@ -10,14 +10,14 @@ class PlayerForm extends React.Component {
         this.onGenderChange = this.onGenderChange.bind(this);
         this.onMessageChange = this.onMessageChange.bind(this);
         this.onSkillChange = this.onSkillChange.bind(this);
-        this.onSubmitPlayer = this.onSubmitPlayer.bind(this);
+        this.onSubmitActivity = this.onSubmitActivity.bind(this);
 
         this.state = {
-            name: props.player ? props.player.name : '',
-            sport_type: props.player ? props.player.sport_type : 'hockey',
-            gender: props.player ? props.player.gender : 'Male',
-            skill_level: props.player ? props.player.skill_level : 'basic',
-            message: props.player ? props.player.message : '', 
+            name: props.activity ? props.activity.name : '',
+            sport_type: props.activity ? props.activity.sport_type : 'hockey',
+            gender: props.activity ? props.activity.gender : 'Male',
+            skill_level: props.activity ? props.activity.skill_level : 'basic',
+            message: props.activity ? props.activity.message : '', 
             error: ''
         }
     }
@@ -47,7 +47,7 @@ class PlayerForm extends React.Component {
         this.setState(() => ({ message }));
     };
 
-    onSubmitPlayer(e) {
+    onSubmitActivity(e) {
         e.preventDefault();
 
         if (!this.state.name) {
@@ -71,9 +71,9 @@ class PlayerForm extends React.Component {
 
     render() {
         return (
-            <div className="player-form">
+            <div className="activity-form">
                 { this.state.error && <p>{this.state.error}</p> }
-                <form onSubmit={this.onSubmitPlayer}>
+                <form onSubmit={this.onSubmitActivity}>
                     <label>Name</label><br/>
                     <input type="text" placeholder="Name" value={this.state.name} onChange={this.onNameChange} autoFocus />
 
@@ -108,4 +108,4 @@ class PlayerForm extends React.Component {
     }
 }
 
-export default PlayerForm;
+export default ActivityForm;

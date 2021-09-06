@@ -3,9 +3,9 @@ import uuid from 'uuid';
 
 // ACTION GENERATORS
 
-const addPlayer = ({ name, message = '', sport_type = 'hockey', skill_level = 'basic', gender = 'Male' } = {}) => ({
+const addActivity = ({ name, message = '', sport_type = 'hockey', skill_level = 'basic', gender = 'Male' } = {}) => ({
     type: 'ADD_PLAYER',
-    player: {
+    activity: {
         id: uuid(),
         name,
         sport_type,
@@ -15,12 +15,12 @@ const addPlayer = ({ name, message = '', sport_type = 'hockey', skill_level = 'b
     }
 })
   
-const removePlayer = ({ id } = {}) => ({
+const removeActivity = ({ id } = {}) => ({
     type: 'REMOVE_PLAYER',
     id
 });
 
-const editPlayer = (id, updates) => ({
+const editActivity = (id, updates) => ({
     type: 'EDIT_PLAYER',
     id,
     updates
@@ -54,22 +54,22 @@ const freeAgentReducer = (state = freeAgentDefaultState, action) => {
         case 'ADD_PLAYER':
             return [
                 ...state,
-                action.player
+                action.activity
             ];
 
         case 'REMOVE_PLAYER':
             return state.filter(({ id }) => id !== action.id);
 
         case 'EDIT_PLAYER':
-            return state.map((player) => {
-                if (player.id === action.id) {
+            return state.map((activity) => {
+                if (activity.id === action.id) {
                     return {
-                        ...player,
+                        ...activity,
                         ...action.updates
                     };
                 }
                 else {
-                    return player;
+                    return activity;
                 }
             });
 
@@ -113,23 +113,23 @@ const filtersReducer = (state = filtersDefaultState, action) => {
     }
 };
 
-// Get visible players
-const getVisiblePlayers = (players, { text, sport_type, skill_level, sort_by }) => {
-    return players.filter((player) => {
+// Get visible activities
+const getVisibleActivities = (activities, { text, sport_type, skill_level, sort_by }) => {
+    return activities.filter((activity) => {
 
         // match the text search
-        const textNameMatch = player.name.toLowerCase().includes(text.toLowerCase());
-        const textMessageMatch = player.message.toLowerCase().includes(text.toLowerCase());
+        const textNameMatch = activity.name.toLowerCase().includes(text.toLowerCase());
+        const textMessageMatch = activity.message.toLowerCase().includes(text.toLowerCase());
 
         // match the sport type
         let typeMatch = false;
-        if (sport_type == 'all' || sport_type == player.sport_type) {
+        if (sport_type == 'all' || sport_type == activity.sport_type) {
             typeMatch = true;
         }
 
         // match the skill level
         let skillMatch = false;
-        if (skill_level == 'all' || skill_level == player.skill_level) {
+        if (skill_level == 'all' || skill_level == activity.skill_level) {
             skillMatch = true;
         }
 
@@ -148,24 +148,24 @@ const getVisiblePlayers = (players, { text, sport_type, skill_level, sort_by }) 
 // use combineReducers to specify which data to control which reducers
 const store = createStore(
     combineReducers({
-        players: freeAgentReducer,
+        activities: freeAgentReducer,
         filters: filtersReducer
     })
 );
 
 store.subscribe(() => {
     const state = store.getState();
-    const visiblePlayers = getVisiblePlayers(state.players, state.filters);
-    console.log(visiblePlayers);
+    const visibleActivities = getVisibleActivities(state.activities, state.filters);
+    console.log(visibleActivities);
 });
 
-console.log("#####Add 2 Players#####");
-const playerOne = store.dispatch(addPlayer({ name: 'Rob Myers', skill_level: 'intermediate', sport_type: 'softball' }));
-const playerTwo = store.dispatch(addPlayer({ name: 'Jane Doe', skill_level: 'expert', gender: 'Female', message: 'I love softball', sport_type: 'hockey'  }));
+console.log("#####Add 2 Activities#####");
+const activityOne = store.dispatch(addActivity({ name: 'Rob Myers', skill_level: 'intermediate', sport_type: 'softball' }));
+const activityTwo = store.dispatch(addActivity({ name: 'Jane Doe', skill_level: 'expert', gender: 'Female', message: 'I love softball', sport_type: 'hockey'  }));
 
-console.log("#####Remove and Update Players#####");
-// store.dispatch(removePlayer({ id: playerOne.player.id }));
-store.dispatch(editPlayer(playerOne.player.id, { skill_level: 'basic' }));
+console.log("#####Remove and Update Activities#####");
+// store.dispatch(removeActivity({ id: activityOne.activity.id }));
+store.dispatch(editActivity(activityOne.activity.id, { skill_level: 'basic' }));
 
 console.log("#####Filter Type 'hockey'#####");
 store.dispatch(setFilterType('hockey'));
