@@ -4,7 +4,7 @@ import uuid from 'uuid';
 // ACTION GENERATORS
 
 const addActivity = ({ name, message = '', sport_type = 'hockey', skill_level = 'basic', gender = 'Male' } = {}) => ({
-    type: 'ADD_PLAYER',
+    type: 'ADD_ACTIVITY',
     activity: {
         id: uuid(),
         name,
@@ -16,12 +16,12 @@ const addActivity = ({ name, message = '', sport_type = 'hockey', skill_level = 
 })
   
 const removeActivity = ({ id } = {}) => ({
-    type: 'REMOVE_PLAYER',
+    type: 'REMOVE_ACTIVITY',
     id
 });
 
 const editActivity = (id, updates) => ({
-    type: 'EDIT_PLAYER',
+    type: 'EDIT_ACTIVITY',
     id,
     updates
 });
@@ -51,16 +51,16 @@ const freeAgentDefaultState = [];
 
 const freeAgentReducer = (state = freeAgentDefaultState, action) => {
     switch (action.type) {
-        case 'ADD_PLAYER':
+        case 'ADD_ACTIVITY':
             return [
                 ...state,
                 action.activity
             ];
 
-        case 'REMOVE_PLAYER':
+        case 'REMOVE_ACTIVITY':
             return state.filter(({ id }) => id !== action.id);
 
-        case 'EDIT_PLAYER':
+        case 'EDIT_ACTIVITY':
             return state.map((activity) => {
                 if (activity.id === action.id) {
                     return {
